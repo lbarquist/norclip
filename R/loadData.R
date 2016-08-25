@@ -8,7 +8,7 @@
 #'
 #' @examples
 #'
-#'
+#' @export
 
 loadData <- function(data_table){
   stopifnot(is.data.frame(data_table), ncol(data_table) == 4)

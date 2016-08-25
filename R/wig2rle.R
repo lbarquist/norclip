@@ -9,9 +9,6 @@
 #'
 #' @examples
 #'
-#' @export
-#'
-#'
 
 wig2rle <- function(forward_path, reverse_path){
   x <- import(forward_path)

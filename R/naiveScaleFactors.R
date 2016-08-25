@@ -8,7 +8,7 @@
 #'
 #' @examples
 #'
-#'
+#' @export
 
 naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
   colnames(data_table) <- c("identifier","type","direction","file")

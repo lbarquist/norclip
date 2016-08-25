@@ -35,5 +35,4 @@ clip_scat <- function(exp, ctrl, sf_exp=1, sf_ctrl=1, xyline=F, exp_lab="crossli
     p <- p + geom_abline(intercept=0, slope=1, colour="red")
   }
   print(p)
-  #smoothScatter(masked_exp, masked_ctrl, nbin=nbin, nrpoints=nrpoints,colramp=colramp, pch=19, cex=.4, xlab=exp_lab, ylab=ctrl_lab)
 }

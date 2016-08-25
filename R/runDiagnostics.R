@@ -31,14 +31,17 @@ runDiagnostics <- function(wigs, data_table, sdn=8, colramp=rev(rainbow(10, end 
     erle <- c(wigs[[efi]], wigs[[eri]])
     crle <- c(wigs[[cfi]], wigs[[cri]])
 
-    filt <- filter_elliptical(erle, crle, sdn=0)
-    evec <- as.vector(erle[filt], mode="integer")
-    cvec <- as.vector(crle[filt], mode="integer")
+    #filt <- filter_elliptical(erle, crle, sdn=0)
+    #evec <- as.vector(erle[filt], mode="integer")
+    #cvec <- as.vector(crle[filt], mode="integer")
 
-    ratio <- log2(evec/cvec)
-    hist(ratio, breaks="FD", freq=FALSE, main=paste("Density for ", this_id, " unfiltered", sep= " "), col="lightgrey")
+
 
 #    smoothScatter(evec, cvec, nbin=5000, nrpoints=0,colramp=colramp, pch=19, cex=.4, xlab="XL", ylab="NXL", main=this_id)
+
+    filt_0 <- which(erle > 0 | crle > 0)
+
+    clip_scat(as.vector(erle[filt_0], mode="integer"), as.vector(crle[filt_0], mode="integer"), elliptical=0, main=paste("Unfiltered 2D density plot for", this_id))
 
     filt <- filter_elliptical(erle, crle, sdn=sdn)
 
@@ -46,15 +49,13 @@ runDiagnostics <- function(wigs, data_table, sdn=8, colramp=rev(rainbow(10, end 
     cvec <- as.vector(crle[filt], mode="integer")
     rm(erle, crle)
 
+    clip_scat(evec, cvec, elliptical = 0, main=paste("Filtered 2D density plot for", this_id))
+
     ratio <- log2(evec/cvec)
 
-    density <- density(ratio)
-    y <- density$y
-
-    hist(ratio, breaks="FD", freq=FALSE, main=paste("Density for ", this_id, sep= " "), col="lightgrey")
-    lines(density, lwd=2)
-
-    clip_scat(evec, cvec, elliptical = 0, main=paste("2D density plot for", this_id))
+    hist(ratio, breaks="FD", freq=FALSE, main=paste("Ratio density for ", this_id, sep= " "), col="lightgrey")
   }, .progress="text")
+
+
 
 }

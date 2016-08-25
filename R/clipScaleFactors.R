@@ -8,7 +8,7 @@
 #'
 #' @examples
 #'
-#'
+#' @export
 
 clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T, plot=T, bg_cut=5){
   colnames(data_table) <- c("identifier","type","direction","file")

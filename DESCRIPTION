@@ -8,11 +8,13 @@ Author: Lars Barquist [aut, cre]
 Maintainer: Lars Barquist <lars.barquist@uni-wuerzburg.de>
 Description: What the package does (one paragraph).
 Depends:
-    R (>= 3.2.3),
+    R (>= 3.2.3)
+Imports:
     plyr,
     rtracklayer,
     ggplot2
 Suggests:
+    BiocStyle,
     knitr
 License: LGPL-3.0
 Encoding: UTF-8

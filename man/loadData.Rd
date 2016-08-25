@@ -19,6 +19,5 @@ A function
 }
 \examples{
 
-
 }
 

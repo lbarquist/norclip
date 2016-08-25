@@ -4,20 +4,21 @@
 \alias{filter_elliptical}
 \title{Construct elliptical filters for matched CLIP-seq experiments}
 \usage{
-filter_elliptical(exp, ctrl, sdn = 6)
+filter_elliptical(exp, ctrl, sdn = 8)
 }
 \arguments{
-\item{exp}{A (possibly rle) vector containing read-counts per nucleotide in
-a crosslinked sample}
+\item{exp}{A (possibly IRanges rle) vector containing read-counts per
+nucleotide in a crosslinked sample}
 
-\item{ctrl}{A (possibly rle) vector containing read-counts per nucleotide in
-a non-crosslinked control}
+\item{ctrl}{A (possibly IRanges rle) vector containing read-counts per
+nucleotide in a non-crosslinked control}
 
 \item{sdn}{The number of standard deviations to use in constructing the
 elliptical filter}
 }
 \value{
-filter_elliptical Return a (possible rle) elliptical filter mask.
+filter_elliptical Return a (possibly IRanges rle) elliptical filter
+mask.
 }
 \description{
 Construct elliptical filters for matched CLIP-seq experiments

@@ -4,9 +4,10 @@
 \alias{clip_scat}
 \title{A function for producing smoothed scatterplots for CLIP-seq data}
 \usage{
-clip_scat(exp, ctrl, exp_lab = "crosslinked", ctrl_lab = "non-crosslinked",
-  elliptical = 2, nbin = 1000, nrpoints = 0,
-  colramp = colorRampPalette(rev(brewer.pal(11, "RdYlBu"))))
+clip_scat(exp, ctrl, sf_exp = 1, sf_ctrl = 1, xyline = F,
+  exp_lab = "crosslinked", ctrl_lab = "non-crosslinked",
+  main = "2D density plot", elliptical = 2, nbin = 100,
+  colramp = rev(rainbow(10, end = 4/6)))
 }
 \arguments{
 \item{exp}{A vector containing read-counts per nucleotide in a crosslinked sample}

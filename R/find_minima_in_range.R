@@ -1,22 +1,36 @@
-#' A function for finding local minima in the empirical distribution of a vector
-#' of values within a certain range
+#' Find local minima in the empirical distribution of a vector.
 #'
 #'
-#' @param data A vector containing numeric data points
-#' @param n Number of local minima to find in the empirical distribution
-#' @param range Range in data within which to find minima
+#' Heuristic function to find local minima in the empirical distribution of a
+#' vector of values within a certain range. Usually used with the output of
+#' \code{\link{find_maxima} to identify a local minimum. Minima are identified
+#' as appropriate change points in a density curve fitted to the input data, and
+#' are reported in order of increasing density in the case of multiple minima.
+#' Will optionally plot the density and predicted minima over a histogram of the
+#' input data.
+#'
+#'
+#' @param data A vector containing numeric data points.
+#' @param n Number of local minima to find in the empirical distribution.
+#' @param range Range in data within which to find minima.
 #' @param plot Plot density and found minima?
 #'
-#' @return find_minima Return a vector containing n local minima ordered by
+#' @return A vector containing n local minima ordered by
 #' decreasing density.
 #'
 #' @examples
+#'
+#' x <- c(rnorm(100), rnorm(100, mean=4))
+#' maxima <- find_maxima(x)
+#' find_minima_in_range(x, range=c(min(maxima), max(maxima)), plot=TRUE)
+#'
+#' @seealso \code{\link{find_maxmima}}
 #'
 #' @export
 #'
 #'
 
-find_minima_in_range <- function(data, n=1, range=c(min(data), max(data)), plot=TRUE){
+find_minima_in_range <- function(data, n=1, range=c(min(data), max(data)), plot=FALSE){
   minima <- NULL
   density <- density(data)
 

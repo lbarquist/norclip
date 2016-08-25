@@ -2,30 +2,32 @@
 % Please edit documentation in R/find_minima_in_range.R
 \name{find_minima_in_range}
 \alias{find_minima_in_range}
-\title{A function for finding local minima in the empirical distribution of a vector
-of values within a certain range}
+\title{Find local minima in the empirical distribution of a vector.}
 \usage{
 find_minima_in_range(data, n = 1, range = c(min(data), max(data)),
-  plot = TRUE)
+  plot = FALSE)
 }
 \arguments{
-\item{data}{A vector containing numeric data points}
+\item{data}{A vector containing numeric data points.}
 
-\item{n}{Number of local minima to find in the empirical distribution}
+\item{n}{Number of local minima to find in the empirical distribution.}
 
-\item{range}{Range in data within which to find minima}
+\item{range}{Range in data within which to find minima.}
 
 \item{plot}{Plot density and found minima?}
 }
 \value{
-find_minima Return a vector containing n local minima ordered by
+A vector containing n local minima ordered by
 decreasing density.
-}
-\description{
-A function for finding local minima in the empirical distribution of a vector
-of values within a certain range
 }
 \examples{
 
+x <- c(rnorm(100), rnorm(100, mean=4))
+maxima <- find_maxima(x)
+find_minima_in_range(x, range=c(min(maxima), max(maxima)), plot=TRUE)
+
+}
+\seealso{
+\code{\link{find_maxmima}}
 }
 

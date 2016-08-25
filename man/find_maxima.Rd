@@ -4,23 +4,35 @@
 \alias{find_maxima}
 \title{Find local maxima in the empirical distribution of a vector of values}
 \usage{
-find_maxima(data, n = 2, plot = TRUE)
+find_maxima(data, n = 2, plot = FALSE)
 }
 \arguments{
-\item{data}{A vector containing numeric data points}
+\item{data}{A vector containing numeric data points.}
 
-\item{n}{Number of local maxima to find in the empirical distribution}
+\item{n}{Number of local maxima to find in the empirical distribution.}
 
 \item{plot}{Plot density and maxima?}
 }
 \value{
-find_maxima Returns a vector containing n local maxima ordered by
+A vector containing n local maxima ordered by
 decreasing density.
 }
 \description{
-Find local maxima in the empirical distribution of a vector of values
+Heuristic function to find local maxima in the empirical distribution of a
+vector of values within a certain range. Usually used to identify a range
+for \code{\link{find_minima_in_range}} in order to identify a local minimum.
+Minima are identified as appropriate change points in a density curve fitted
+to the input data, and are reported in order of decreasing density in the
+case of multiple maxima.  Will optionally plot the density and predicted
+maxima over a histogram of the input data.
 }
 \examples{
 
+x <- c(rnorm(100), rnorm(100, mean=4))
+find_maxima(x, plot=TRUE)
+
+}
+\seealso{
+\code{\link{find_minima_in_range}}
 }
 

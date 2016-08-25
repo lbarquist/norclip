@@ -4,7 +4,8 @@
 \alias{norclip}
 \title{Perform norclip normalization of CLIP-seq libraries}
 \usage{
-norclip(file, crossnormalize = T, sdn = 8)
+norclip(file, crossnormalize = T, sdn = 8, diagnostics = T, bg_cut = 5,
+  naive = T, export_wigs = F, wig_path = ".")
 }
 \arguments{
 \item{file}{Path to a description file}

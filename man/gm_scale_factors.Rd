@@ -5,7 +5,7 @@
 \title{A function for determining RNA-seq scale factors using the geometric mean
 across samples, as introduced by Anders and Huber, Genome Biology, 2010.}
 \usage{
-gm_scale_factors(matrix)
+gm_scale_factors(matrix, locfunc = median)
 }
 \arguments{
 \item{matrix}{A matrix containing columns corresponding to samples, and rows

@@ -1,14 +1,30 @@
-#' A function
+#' A function to generate diagnostic plots for CLIP-seq data.
+#'
+#' This function produces various diagnostic plots to help the user understand
+#' if their data is suitable for \code{\link{norclip}} analysis, and if the
+#' default filtering values are appropriate. These include unfiltered and
+#' filtered 2D density plots comparing crosslinked libraries to uncrosslinked
+#' control libraries, and 1D histograms of the result log2 ratios. See vignette
+#' for advice on interpreting these plots.
 #'
 #'
-#' @param forward_path .
-#' @param reverse_path Path to reverse strand wig file.
+#' @param wigs A list of IRanges rle coverage vectors.
+#' @param data_table Vector metadata in data frame format, see package vignette
+#' for details.
+#' @param sdn Number of standard deviations for elliptical filtering, see
+#' \code{\link{filter_elliptical}} for details.
+#' @param colramp Color scheme for 2D density plots. Defaults to mimic the color
+#' scheme of
 #'
-#' @return loadData Return a list of IRanges rle coverage vectors.
+#' @return No explicit return, will produce 3 plots per experiment group:
+#' an unfiltered 2D density plot, an elliptically filtered 2D density plot,
+#' and a density plot for the log2 ratio of experiment to control library read
+#' counts.
 #'
 #' @examples
 #'
-#'
+#' @seealso \code{\link{norclip}}, \code{\link{loadData}},
+#' \code{\link{filter_elliptical}}, \code{\link{clip_scat}}
 
 runDiagnostics <- function(wigs, data_table, sdn=8, colramp=rev(rainbow(10, end = 4/6))){
   message("Running CLIP diagnostics")

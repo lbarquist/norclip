@@ -1,13 +1,19 @@
-#' A function for importing a wig file and transforming it into a vector
-#' containing per nucleotide counts.
+#' Import wig files into rle coverage vectors.
+#'
+#' Imports wiggle files for forward and reverse strands of a CLIP-seq
+#' experiment. These are then converted to rle coverage vectors, and the
+#' absolute value of the reverse strand is taken to guard against negative
+#' values before concatenation.
 #'
 #'
 #' @param forward_path Path to forward strand wig file.
 #' @param reverse_path Path to reverse strand wig file.
 #'
-#' @return wig2rle Return an IRanges rle coverage vector.
+#' @return Return a concatenated IRanges rle coverage vector.
 #'
 #' @examples
+#'
+#' @seealso \code{\link{import}}, \code{\link{loadData}}
 #'
 
 wig2rle <- function(forward_path, reverse_path){

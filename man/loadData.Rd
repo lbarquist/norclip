@@ -2,20 +2,24 @@
 % Please edit documentation in R/loadData.R
 \name{loadData}
 \alias{loadData}
-\title{A function}
+\title{Load CLIP-seq data for analysis with \code{norclip}}
 \usage{
 loadData(data_table)
 }
 \arguments{
-\item{forward_path}{.}
-
-\item{reverse_path}{Path to reverse strand wig file.}
+\item{data_table}{A data frame describing the experiments.}
 }
 \value{
-loadData Return a list of IRanges rle coverage vectors.
+Returns a list of IRanges rle coverage vectors.
 }
 \description{
-A function
+Load CLIP-seq data for analysis with \code{norclip}
+}
+\details{
+This function loads data to be used for analysis in various
+functions provided by the \code{norclip} package. The format of the input
+data frame should be \code{identifier}, \code{type}, \code{direction},
+\code{file}. See the vignette for details.
 }
 \examples{
 

@@ -3,7 +3,7 @@
 #'
 #' Heuristic function to find local minima in the empirical distribution of a
 #' vector of values within a certain range. Usually used with the output of
-#' \code{\link{find_maxima} to identify a local minimum. Minima are identified
+#' \code{\link{find_maxima}} to identify a local minimum. Minima are identified
 #' as appropriate change points in a density curve fitted to the input data, and
 #' are reported in order of increasing density in the case of multiple minima.
 #' Will optionally plot the density and predicted minima over a histogram of the
@@ -30,7 +30,8 @@
 #'
 #'
 
-find_minima_in_range <- function(data, n=1, range=c(min(data), max(data)), plot=FALSE){
+find_minima_in_range <- function(data, n=1,
+                                 range=c(min(data), max(data)), plot=FALSE){
   minima <- NULL
   density <- density(data)
 
@@ -60,7 +61,8 @@ find_minima_in_range <- function(data, n=1, range=c(min(data), max(data)), plot=
   selected_positions <- positions[order[1:n]]
 
   if(plot){
-    hist(data, breaks="FD", freq=FALSE, main=paste("First",n, "local minima", sep= " "), col="lightgrey")
+    hist(data, breaks="FD", freq=FALSE,
+         main=paste("First",n, "local minima", sep= " "), col="lightgrey")
     lines(density, lwd=2)
     l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
   }

@@ -1,16 +1,41 @@
-#' A function
+#' Calculate scale factors for CLIP-seq data
 #'
 #'
-#' @param forward_path .
-#' @param reverse_path Path to reverse strand wig file.
 #'
-#' @return loadData Return a list of IRanges rle coverage vectors.
+#' @param wigs A list of IRanges rle coverage vectors.
+#' @param data_table Vector metadata in data frame format, see package vignette
+#' for details.
+#' @param sdn Number of standard deviations for elliptical filtering, see
+#' \code{\link{filter_elliptical}} for details.
+#' @param crossnormalize Crossnormalize the control libraries?
+#' @param plot Produce diagnostic plots?
+#' @param bg_cut Cut-off for control library normalization.
+#'
+#' @return Returns an array of scale factors for the provided libraries.
+#'
+#' @details This function computes scale factors for CLIP-seq data, under the
+#' assumption that it follows a bi- or multi-modal distribution. For each
+#' matched experiment, low count reads are first filtered using an elliptical
+#' filter based on the read count standard deviation. Log2 ratios of read counts
+#' per nucleotide are calculated, and a local minima is identified between the
+#' two highest density maxima. Positions with a log2 ratio less than this minima
+#' are then used to fit a scale factor for each experiment. Optionally using the
+#' \code{crossnormalize} parameter, all libraries can be scaled based on scale
+#' factors computed between control libraries to produce consistent values for
+#' hypothesis testing. Note positions that with less than \code{bg_cut} reads in
+#' any library will be excluded.
+#'
 #'
 #' @examples
 #'
+#' @seealso \code{\link{norclip}}, \code{\link{loadData}},
+#' \code{\link{gm_scale_factors}}, \code{\link{filter_elliptical}}
+#' \code{\link{clip_scat}}
+#'
 #' @export
 
-clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T, plot=T, bg_cut=5){
+clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
+                             plot=T, bg_cut=5){
   colnames(data_table) <- c("identifier","type","direction","file")
   uids <- as.vector(unique(data_table$identifier), mode="list")
 
@@ -47,7 +72,8 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T, plot=T, 
 
     if(plot){
       nf <- median(evec / cvec)
-      plot(sort(evec[scale_indices] / cvec[scale_indices]), ylab="XL+ to XL- ratio", xlab="Sort Index", pch=20)
+      plot(sort(evec[scale_indices] / cvec[scale_indices]),
+           ylab="XL+ to XL- ratio", xlab="Sort Index", pch=20)
       abline(h=nf, col="red")
       abline(h=sf, col="blue")
       mtext(paste("naive scale factor:", nf), side=3, adj=0, line=0, col="red")
@@ -81,7 +107,8 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T, plot=T, 
 
     nz <- Reduce(intersect, nz_pos)
     rm(nz_pos)
-    message(paste(length(nz)," background positions used for crossnormalization", sep=""))
+    message(paste(length(nz),
+                  " background positions used for crossnormalization", sep=""))
 
     nz_ar <- laply(bg_vecs, function(this_rle){
       return(as.vector(this_rle[nz], mode="integer"))
@@ -116,7 +143,9 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T, plot=T, 
       crle <- c(wigs[[cfi]], wigs[[cri]])
 
       message(paste(this_id,sfs[this_id,"E"], sfs[this_id,"C"]))
-      clip_scat(erle, crle, sf_exp=sfs[this_id,"E"], sf_ctrl=sfs[this_id, "C"], xyline=T, elliptical=sdn, main=paste("2D density plot for", this_id))
+      clip_scat(erle, crle, sf_exp=sfs[this_id,"E"], sf_ctrl=sfs[this_id, "C"],
+                xyline=T, elliptical=sdn,
+                main=paste("2D density plot for", this_id))
     })
   }
 

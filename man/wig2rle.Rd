@@ -2,8 +2,7 @@
 % Please edit documentation in R/wig2rle.R
 \name{wig2rle}
 \alias{wig2rle}
-\title{A function for importing a wig file and transforming it into a vector
-containing per nucleotide counts.}
+\title{Import wig files into rle coverage vectors.}
 \usage{
 wig2rle(forward_path, reverse_path)
 }
@@ -13,13 +12,18 @@ wig2rle(forward_path, reverse_path)
 \item{reverse_path}{Path to reverse strand wig file.}
 }
 \value{
-wig2rle Return an IRanges rle coverage vector.
+Return a concatenated IRanges rle coverage vector.
 }
 \description{
-A function for importing a wig file and transforming it into a vector
-containing per nucleotide counts.
+Imports wiggle files for forward and reverse strands of a CLIP-seq
+experiment. These are then converted to rle coverage vectors, and the
+absolute value of the reverse strand is taken to guard against negative
+values before concatenation.
 }
 \examples{
 
+}
+\seealso{
+\code{\link{import}}, \code{\link{loadData}}
 }
 

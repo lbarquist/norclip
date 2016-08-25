@@ -1,10 +1,13 @@
-#' A function
+#' Load CLIP-seq data for analysis with \code{norclip}
 #'
+#' @param data_table A data frame describing the experiments.
 #'
-#' @param forward_path .
-#' @param reverse_path Path to reverse strand wig file.
+#' @return Returns a list of IRanges rle coverage vectors.
 #'
-#' @return loadData Return a list of IRanges rle coverage vectors.
+#' @details This function loads data to be used for analysis in various
+#' functions provided by the \code{norclip} package. The format of the input
+#' data frame should be \code{identifier}, \code{type}, \code{direction},
+#' \code{file}. See the vignette for details.
 #'
 #' @examples
 #'

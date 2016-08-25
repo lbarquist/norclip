@@ -17,11 +17,16 @@ nucleotide in a non-crosslinked control}
 elliptical filter}
 }
 \value{
-filter_elliptical Return a (possibly IRanges rle) elliptical filter
-mask.
+Returns a (possibly IRanges rle) elliptical filter mask.
 }
 \description{
-Construct elliptical filters for matched CLIP-seq experiments
+This function constructs an elliptical filter centered on the origin for two
+libraries based on the per nucleotide read counts.
+The filter is defined as \code{((exp)^2)/a + ((ctrl)^2)/b = 1}, where
+\code{a} and \code{b} are the means of each coverage vector plus \code{sdn}
+standard deviations. Positions within the ellipse return \code{FALSE}, while
+those outside the ellipse return \code{TRUE}. Will return an IRanges rle
+vector if the input vectors are rle vectors.
 }
 \examples{
 

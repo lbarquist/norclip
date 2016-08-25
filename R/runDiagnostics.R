@@ -14,7 +14,7 @@
 #' @param sdn Number of standard deviations for elliptical filtering, see
 #' \code{\link{filter_elliptical}} for details.
 #' @param colramp Color scheme for 2D density plots. Defaults to mimic the color
-#' scheme of
+#' scheme of \code{\link{smoothScatter}}.
 #'
 #' @return No explicit return, will produce 3 plots per experiment group:
 #' an unfiltered 2D density plot, an elliptically filtered 2D density plot,
@@ -23,10 +23,13 @@
 #'
 #' @examples
 #'
+#' @export
+#'
 #' @seealso \code{\link{norclip}}, \code{\link{loadData}},
 #' \code{\link{filter_elliptical}}, \code{\link{clip_scat}}
 
-runDiagnostics <- function(wigs, data_table, sdn=8, colramp=rev(rainbow(10, end = 4/6))){
+runDiagnostics <- function(wigs, data_table, sdn=8,
+                           colramp=rev(rainbow(10, end = 4/6))){
   message("Running CLIP diagnostics")
   #data_table <-read.table(file, stringsAsFactors = F)
   colnames(data_table) <- c("identifier","type","direction","file")
@@ -47,17 +50,11 @@ runDiagnostics <- function(wigs, data_table, sdn=8, colramp=rev(rainbow(10, end 
     erle <- c(wigs[[efi]], wigs[[eri]])
     crle <- c(wigs[[cfi]], wigs[[cri]])
 
-    #filt <- filter_elliptical(erle, crle, sdn=0)
-    #evec <- as.vector(erle[filt], mode="integer")
-    #cvec <- as.vector(crle[filt], mode="integer")
-
-
-
-#    smoothScatter(evec, cvec, nbin=5000, nrpoints=0,colramp=colramp, pch=19, cex=.4, xlab="XL", ylab="NXL", main=this_id)
-
     filt_0 <- which(erle > 0 | crle > 0)
 
-    clip_scat(as.vector(erle[filt_0], mode="integer"), as.vector(crle[filt_0], mode="integer"), elliptical=0, main=paste("Unfiltered 2D density plot for", this_id))
+    clip_scat(as.vector(erle[filt_0], mode="integer"),
+              as.vector(crle[filt_0], mode="integer"), elliptical=0,
+              main=paste("Unfiltered 2D density plot for", this_id))
 
     filt <- filter_elliptical(erle, crle, sdn=sdn)
 
@@ -65,11 +62,13 @@ runDiagnostics <- function(wigs, data_table, sdn=8, colramp=rev(rainbow(10, end 
     cvec <- as.vector(crle[filt], mode="integer")
     rm(erle, crle)
 
-    clip_scat(evec, cvec, elliptical = 0, main=paste("Filtered 2D density plot for", this_id))
+    clip_scat(evec, cvec, elliptical = 0,
+              main=paste("Filtered 2D density plot for", this_id))
 
     ratio <- log2(evec/cvec)
 
-    hist(ratio, breaks="FD", freq=FALSE, main=paste("Ratio density for ", this_id, sep= " "), col="lightgrey")
+    hist(ratio, breaks="FD", freq=FALSE,
+         main=paste("Ratio density for ", this_id, sep= " "), col="lightgrey")
   }, .progress="text")
 
 

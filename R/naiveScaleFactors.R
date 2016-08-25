@@ -1,12 +1,24 @@
-#' A function
+#' Calculate naive scale factors for RNA-seq data
 #'
 #'
-#' @param forward_path .
-#' @param reverse_path Path to reverse strand wig file.
+#' @param wigs A list of IRanges rle coverage vectors.
+#' @param data_table Vector metadata in data frame format, see package vignette
+#' for details.
+#' @param sdn Number of standard deviations for elliptical filtering, see
+#' \code{\link{filter_elliptical}} for details.
+#' @param plot Produce diagnostic plots?
+#' @param bg_cut Cut-off for library normalization.
 #'
-#' @return loadData Return a list of IRanges rle coverage vectors.
+#' @return Returns an array of scale factors for the provided libraries.
+#'
+#' @details This function computes scale factors using a 'naive' method, i.e.
+#' not considering the different sizes of experiment and control RNA pools.
+#' This method was adapted from RNA-seq analysis, propsed by Anders and Huber,
+#' Genome Biology, 2010.
 #'
 #' @examples
+#'
+#' @seealso \code{\link{gm_scale_factors}}
 #'
 #' @export
 
@@ -49,7 +61,8 @@ naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
 
   nz <- union(nz_exp, nz_ctrl)
 
-  message(paste(length(nz)," background positions used for naive normalization", sep=""))
+  message(paste(length(nz)," background positions used for naive normalization",
+                sep=""))
 
   vecs <- unlist(vecs)
 
@@ -77,7 +90,9 @@ naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
       crle <- c(wigs[[cfi]], wigs[[cri]])
 
       message(paste(this_id,sfs[this_id,"E"], sfs[this_id,"C"]))
-      clip_scat(erle, crle, sf_exp=sfs[this_id,"E"], sf_ctrl=sfs[this_id, "C"], xyline=T, elliptical=sdn, main=paste("Naive 2D density plot for", this_id))
+      clip_scat(erle, crle, sf_exp=sfs[this_id,"E"], sf_ctrl=sfs[this_id, "C"],
+                xyline=T, elliptical=sdn,
+                main=paste("Naive 2D density plot for", this_id))
     })
   }
 

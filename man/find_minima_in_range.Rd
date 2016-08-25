@@ -20,6 +20,15 @@ find_minima_in_range(data, n = 1, range = c(min(data), max(data)),
 A vector containing n local minima ordered by
 decreasing density.
 }
+\description{
+Heuristic function to find local minima in the empirical distribution of a
+vector of values within a certain range. Usually used with the output of
+\code{\link{find_maxima}} to identify a local minimum. Minima are identified
+as appropriate change points in a density curve fitted to the input data, and
+are reported in order of increasing density in the case of multiple minima.
+Will optionally plot the density and predicted minima over a histogram of the
+input data.
+}
 \examples{
 
 x <- c(rnorm(100), rnorm(100, mean=4))

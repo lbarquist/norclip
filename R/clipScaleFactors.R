@@ -41,7 +41,7 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
 
   message("Calculating size factors")
 
-  fg_sfs <- laply(uids, function(this_id){
+  fg_sfs <- plyr::laply(uids, function(this_id){
     efi <- which(data_table$identifier == this_id & data_table$type == "E" &
                    data_table$direction =="F")
     eri <- which(data_table$identifier == this_id & data_table$type == "E" &
@@ -56,8 +56,8 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
 
     filt <- filter_elliptical(erle, crle, sdn=sdn)
 
-    evec <- as.vector(erle[filt], mode="integer")
-    cvec <- as.vector(crle[filt], mode="integer")
+    evec <- as.vector(erle[filt], mode="numeric")
+    cvec <- as.vector(crle[filt], mode="numeric")
     rm(erle, crle)
 
     ratio <- log2(evec / cvec)
@@ -77,7 +77,8 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
       abline(h=nf, col="red")
       abline(h=sf, col="blue")
       mtext(paste("naive scale factor:", nf), side=3, adj=0, line=0, col="red")
-      mtext(paste("norclip scale factor:",sf), side=3, adj=0, line=1, col="blue")
+      mtext(paste("norclip scale factor:",sf), side=3, adj=0, line=1,
+            col="blue")
       mtext(this_id, side=3, adj=0, line=2)
     }
 
@@ -90,7 +91,7 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
 
 
   if(crossnormalize){
-    bg_vecs <- llply(uids, function(this_id){
+    bg_vecs <- plyr::llply(uids, function(this_id){
       cfi <- which(data_table$identifier == this_id & data_table$type == "C" &
                      data_table$direction =="F")
       cri <- which(data_table$identifier == this_id & data_table$type == "C" &
@@ -101,7 +102,7 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
 
     #return(bg_vecs)
 
-    nz_pos <- llply(bg_vecs, function(this_rle){
+    nz_pos <- plyr::llply(bg_vecs, function(this_rle){
       return(which(this_rle > bg_cut))
     })
 
@@ -110,8 +111,8 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
     message(paste(length(nz),
                   " background positions used for crossnormalization", sep=""))
 
-    nz_ar <- laply(bg_vecs, function(this_rle){
-      return(as.vector(this_rle[nz], mode="integer"))
+    nz_ar <- plyr::laply(bg_vecs, function(this_rle){
+      return(as.vector(this_rle[nz], mode="numeric"))
     })
 
     bg_sfs <- gm_scale_factors(t(nz_ar))
@@ -122,14 +123,14 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
 
   names(bg_sfs) <- unlist(uids)
 
-  sfs <- aaply(seq(from=1,to=length(unlist(uids))), 1, function(this_ind){
+  sfs <- plyr::aaply(seq(from=1,to=length(unlist(uids))), 1, function(this_ind){
     return(cbind(bg_sfs[this_ind] * fg_sfs[this_ind], bg_sfs[this_ind]))
   })
   rownames(sfs) <- unlist(uids)
   colnames(sfs) <- c("E", "C")
 
   if(plot){
-    l_ply(uids, function(this_id){
+    plyr::l_ply(uids, function(this_id){
       efi <- which(data_table$identifier == this_id & data_table$type == "E" &
                      data_table$direction =="F")
       eri <- which(data_table$identifier == this_id & data_table$type == "E" &
@@ -145,7 +146,7 @@ clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
       message(paste(this_id,sfs[this_id,"E"], sfs[this_id,"C"]))
       clip_scat(erle, crle, sf_exp=sfs[this_id,"E"], sf_ctrl=sfs[this_id, "C"],
                 xyline=T, elliptical=sdn,
-                main=paste("2D density plot for", this_id))
+                main=paste("2D frequency plot for", this_id))
     })
   }
 

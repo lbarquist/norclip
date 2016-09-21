@@ -18,7 +18,7 @@ loadData <- function(data_table){
   colnames(data_table) <- c("identifier","type","direction","file")
 
   #sanity check
-  l_ply(unique(data_table$identifier), function(x){
+  plyr::l_ply(unique(data_table$identifier), function(x){
     tmp <- data_table[data_table$identifier == x,]
     if(length(tmp[, "identifier"]) != 4){
       stop("Number of entries for identifer ",x," not equal to four.")
@@ -41,7 +41,7 @@ loadData <- function(data_table){
 
   message("Reading wiggle files")
 
-  wigs <- llply(data_table$file, function(x){
+  wigs <- plyr::llply(data_table$file, function(x){
     this_wig <- import(as.character(x))
     this_wig <- abs(coverage(this_wig, weight="score"))
     return(this_wig)
@@ -51,7 +51,7 @@ loadData <- function(data_table){
 
   #check replicons identical, get lengths
   replicons <- names(wigs[[1]])
-  l_ply(wigs, function(x){
+  plyr::l_ply(wigs, function(x){
     if(length(setdiff(replicons, names(x))) > 0){
       stop("Replicons differ between experiments")
     }
@@ -78,7 +78,7 @@ loadData <- function(data_table){
   }
 
   #convert all replicons to single RLE
-  wigs <- llply(wigs, function(x){
+  wigs <- plyr::llply(wigs, function(x){
     unlist(x[order(replicons)])
   })
 

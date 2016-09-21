@@ -32,23 +32,23 @@ clip_scat <- function(exp, ctrl, sf_exp=1, sf_ctrl=1, xyline=F,
                       colramp=rev(rainbow(10, end = 4/6))){
   if(elliptical > 0){
     filt <- filter_elliptical(exp, ctrl, elliptical)
-    masked_exp <- as.vector(exp[filt], mode="integer")
-    masked_ctrl <- as.vector(ctrl[filt], mode="integer")
+    masked_exp <- as.vector(exp[filt], mode="numeric")
+    masked_ctrl <- as.vector(ctrl[filt], mode="numeric")
   }else{
-    masked_exp <- as.vector(exp, mode="integer")
-    masked_ctrl <- as.vector(ctrl, mode="integer")
+    masked_exp <- as.vector(exp, mode="numeric")
+    masked_ctrl <- as.vector(ctrl, mode="numeric")
   }
   masked_exp <- masked_exp / sf_exp
   masked_ctrl <- masked_ctrl / sf_ctrl
 
   this_dat <- data.frame(exp = masked_exp, ctrl = masked_ctrl)
 
-  p <- ggplot(this_dat, aes(x=exp, y=ctrl))
-  p <- p + geom_hex(aes(x=exp,y=ctrl), bins=100) + xlab("+XL") + ylab ("-XL")
-  p <- p +scale_fill_gradientn("", colours = colramp) + theme_bw()
-  p <- p + ggtitle(main)
+  p <- ggplot2::ggplot(this_dat, aes(x=exp, y=ctrl))
+  p <- p + ggplot2::geom_hex(aes(x=exp,y=ctrl), bins=100) + ggplot2::xlab("+XL") + ggplot2::ylab ("-XL")
+  p <- p + ggplot2::scale_fill_gradientn("", colours = colramp) + ggplot2::theme_bw()
+  p <- p + ggplot2::ggtitle(main)
   if(xyline){
-    p <- p + geom_abline(intercept=0, slope=1, colour="red")
+    p <- p + ggplot2::geom_abline(intercept=0, slope=1, colour="red")
   }
   print(p)
 }

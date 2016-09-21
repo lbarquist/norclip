@@ -52,18 +52,18 @@ runDiagnostics <- function(wigs, data_table, sdn=8,
 
     filt_0 <- which(erle > 0 | crle > 0)
 
-    clip_scat(as.vector(erle[filt_0], mode="integer"),
-              as.vector(crle[filt_0], mode="integer"), elliptical=0,
-              main=paste("Unfiltered 2D density plot for", this_id))
+    clip_scat(as.vector(erle[filt_0], mode="numeric"),
+              as.vector(crle[filt_0], mode="numeric"), elliptical=0,
+              main=paste("Unfiltered 2D frequency plot for", this_id))
 
     filt <- filter_elliptical(erle, crle, sdn=sdn)
 
-    evec <- as.vector(erle[filt], mode="integer")
-    cvec <- as.vector(crle[filt], mode="integer")
+    evec <- as.vector(erle[filt], mode="numeric")
+    cvec <- as.vector(crle[filt], mode="numeric")
     rm(erle, crle)
 
     clip_scat(evec, cvec, elliptical = 0,
-              main=paste("Filtered 2D density plot for", this_id))
+              main=paste("Filtered 2D frequency plot for", this_id))
 
     ratio <- log2(evec/cvec)
 

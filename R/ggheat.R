@@ -3,10 +3,10 @@
 #'
 #'
 #' @param m A numeric matrix or data.frame
-#' @param rescaling Rescale on columns or rows?
-#' @param clustering cluster rows, columns, or both?
-#' @param labCol label columns?
-#' @param labRow label rows?
+#' @param rescaling Rescale? Options are "row" or "column"
+#' @param clustering Cluster entries? Options are "row", "column", or "both".
+#' @param labCol Label columns?
+#' @param labRow Label rows?
 #' @param border Add border to plot?
 #' @param heatscale Color range for colorscale.
 #'
@@ -18,9 +18,7 @@
 #'
 #' @examples
 #'
-#' @seealso \code{\link{norclip}}, \code{\link{loadData}},
-#' \code{\link{gm_scale_factors}}, \code{\link{filter_elliptical}}
-#' \code{\link{clip_scat}}
+#' @seealso \code{\link{runDiagnostics}}, \code{\link{plotCorrelations}}
 #'
 #' @export
 

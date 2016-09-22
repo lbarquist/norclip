@@ -38,7 +38,7 @@ two highest density maxima. Positions with a log2 ratio less than this minima
 are then used to fit a scale factor for each experiment. Optionally using the
 \code{crossnormalize} parameter, all libraries can be scaled based on scale
 factors computed between control libraries to produce consistent values for
-hypothesis testing. Note positions that with less than \code{bg_cut} reads in
+hypothesis testing. Note positions with less than \code{bg_cut} reads in
 any library will be excluded.
 }
 \examples{

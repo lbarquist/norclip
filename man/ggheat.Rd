@@ -2,41 +2,40 @@
 % Please edit documentation in R/ggheat.R
 \name{ggheat}
 \alias{ggheat}
-\title{Calculate scale factors for CLIP-seq data}
+\title{A heatmap.2 style heatmap in ggplot2}
 \usage{
 ggheat(m, rescaling = "none", clustering = "none", labCol = T,
   labRow = T, border = FALSE, heatscale = c(low = "blue", high = "red"))
 }
 \arguments{
-\item{wigs}{A list of IRanges rle coverage vectors.}
+\item{m}{A numeric matrix or data.frame}
 
-\item{data_table}{Vector metadata in data frame format, see package vignette
-for details.}
+\item{rescaling}{Rescale? Options are "row" or "column"}
 
-\item{sdn}{Number of standard deviations for elliptical filtering, see
-\code{\link{filter_elliptical}} for details.}
+\item{clustering}{Cluster entries? Options are "row", "column", or "both".}
 
-\item{crossnormalize}{Crossnormalize the control libraries?}
+\item{labCol}{Label columns?}
 
-\item{plot}{Produce diagnostic plots?}
+\item{labRow}{Label rows?}
 
-\item{bg_cut}{Cut-off for control library normalization.}
+\item{border}{Add border to plot?}
+
+\item{heatscale}{Color range for colorscale.}
 }
 \value{
 heatmap.2 style plot in ggplots2
 }
 \description{
-Calculate scale factors for CLIP-seq data
+A heatmap.2 style heatmap in ggplot2
 }
 \details{
-stolen from https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/
+modified from
+https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/
 }
 \examples{
 
 }
 \seealso{
-\code{\link{norclip}}, \code{\link{loadData}},
-\code{\link{gm_scale_factors}}, \code{\link{filter_elliptical}}
-\code{\link{clip_scat}}
+\code{\link{runDiagnostics}}, \code{\link{plotCorrelations}}
 }
 

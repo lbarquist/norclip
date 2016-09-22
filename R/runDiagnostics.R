@@ -31,9 +31,7 @@
 runDiagnostics <- function(wigs, data_table, sdn=8,
                            colramp=rev(rainbow(10, end = 4/6))){
   message("Running CLIP diagnostics")
-  #data_table <-read.table(file, stringsAsFactors = F)
   colnames(data_table) <- c("identifier","type","direction","file")
-  #wigs <- loadData(data_table)
 
   uids <- as.vector(unique(data_table$identifier), mode="list")
 

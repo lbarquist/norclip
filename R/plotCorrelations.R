@@ -25,7 +25,7 @@
 
 
 plotCorrelations <- function(wigs, data_table, method="pearson", log=F,
-                             heatscale= c(low='blue',high='red')){
+                             heatscale= c(low='darkblue',high='lightblue')){
   colnames(data_table) <- c("identifier","type","direction","file")
   nz_pos <- plyr::llply(wigs, function(this_rle){return(which(this_rle != 0))})
   nz <- Reduce(intersect, nz_pos)
@@ -46,6 +46,7 @@ plotCorrelations <- function(wigs, data_table, method="pearson", log=F,
   }
   rownames(cormat) <- these_names
   colnames(cormat) <- these_names
-  ggheat(cormat, clustering="both", labRow=T, labCol=T, heatscale=heatscale)
+  print(ggheat(cormat, clustering="both", labRow=T, labCol=T,
+               heatscale=heatscale, border=T))
   return(cormat)
 }

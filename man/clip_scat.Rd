@@ -44,6 +44,6 @@ Draws a 2D density plot for per-nucleotide read counts using the
 
 }
 \seealso{
-\code{\link{elliptical_filter}} \code{\link{geom_hex}}
+\code{\link{filter_elliptical}} \code{\link{geom_hex}}
 }
 

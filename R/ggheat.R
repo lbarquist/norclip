@@ -1,6 +1,11 @@
-#' A heatmap.2 style heatmap in ggplot2
+#' ggplot2 heatmap
 #'
-#'
+#' Draws a (potentially clustered) heatmap, with a lighter-weight resulting
+#' figure file than is typical for heatmap.2. This code was modified from a code
+#' snippet found at:
+#' \link{https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/};
+#' if you are the original author please contact me so I can credit you
+#' properly.
 #'
 #' @param m A numeric matrix or data.frame
 #' @param rescaling Rescale? Options are "row" or "column"
@@ -10,10 +15,9 @@
 #' @param border Add border to plot?
 #' @param heatscale Color range for colorscale.
 #'
-#' @return heatmap.2 style plot in ggplots2
+#' @return A ggplot object containing the formatted heatmap
 #'
-#' @details modified from
-#' https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/
+#' @details
 #'
 #'
 #' @examples
@@ -22,17 +26,9 @@
 #'
 #' @export
 
-ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T, border=FALSE,
-                heatscale= c(low='blue',high='red'))
+ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T,
+                border=FALSE, heatscale= c(low='darkblue',high='lightblue'))
 {
-  ## the function can be be viewed as a two step process
-  ## 1. using the rehape package and other funcs the data is clustered, scaled, and reshaped
-  ## using simple options or by a user supplied function
-  ## 2. with the now resahped data the plot, the chosen labels and plot style are built
-
-  ## you can either scale by row or column not both!
-  ## if you wish to scale by both or use a differen scale method then simply supply a scale
-  ## function instead NB scale is a base funct
 
   if(is.function(rescaling))
   {
@@ -46,10 +42,6 @@ ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T, bord
       m=t(scale(t(m),center=T))
   }
 
-  ## I have supplied the default cluster and euclidean distance- and chose to cluster after scaling
-  ## if you want a different distance/cluster method-- or to cluster and then scale
-  ## then you can supply a custom function
-
   if(is.function(clustering))
   {
     m=clustering(m)
@@ -62,21 +54,21 @@ ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T, bord
     if(clustering=='both')
       m=m[hclust(dist(m))$order ,hclust(dist(t(m)))$order]
   }
-  ## this is just reshaping into a ggplot format matrix and making a ggplot layer
 
   rows=dim(m)[1]
   cols=dim(m)[2]
-  melt.m=cbind(rowInd=rep(1:rows, times=cols), colInd=rep(1:cols, each=rows), reshape::melt.array(m))
+  melt.m=cbind(rowInd=rep(1:rows, times=cols), colInd=rep(1:cols, each=rows),
+               reshape::melt.array(m))
   g=ggplot2::ggplot(data=melt.m)
 
-  ## add the heat tiles with or without a white border for clarity
 
   if(border==TRUE)
-    g2=g+ggplot2::geom_rect(ggplot2::aes(xmin=colInd-1,xmax=colInd,ymin=rowInd-1,ymax=rowInd, fill=value),colour='white')
+    g2=g+ggplot2::geom_rect(ggplot2::aes(xmin=colInd-1,xmax=colInd,
+                                         ymin=rowInd-1,ymax=rowInd, fill=value)
+                            ,colour='white')
   if(border==FALSE)
-    g2=g+ggplot2::geom_rect(ggplot2::aes(xmin=colInd-1,xmax=colInd,ymin=rowInd-1,ymax=rowInd, fill=value))
-
-  ## add axis labels either supplied or from the colnames rownames of the matrix
+    g2=g+ggplot2::geom_rect(ggplot2::aes(xmin=colInd-1,xmax=colInd,
+                                         ymin=rowInd-1,ymax=rowInd, fill=value))
 
   if(labCol==T)
     g2=g2+ggplot2::scale_x_continuous(breaks=(1:cols)-0.5, labels=colnames(m))
@@ -95,12 +87,8 @@ ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T, bord
                        panel.background=ggplot2::element_rect(fill=NA,
                                                               colour=NA))
 
-  ## finally add the fill colour ramp of your choice (default is blue to red)-- and return
-  print(g2+ggplot2::scale_fill_continuous("", heatscale[1], heatscale[2]))
+  return(g2+ggplot2::scale_fill_continuous(low=heatscale[1], high=heatscale[2],
+                                           guide="colourbar"))
 
 }
 
-## NB because ggheat returns an ordinary ggplot you can add ggplot tweaks post-production e.g.
-## data(mtcars)
-## x= as.matrix(mtcars)
-## ggheat(x, clustCol=T)+ opts(panel.background=theme_rect(fill='pink'))

@@ -20,10 +20,10 @@ for details.}
 scheme of \code{\link{smoothScatter}}.}
 }
 \value{
-No explicit return, will produce 3 plots per experiment group:
-an unfiltered 2D density plot, an elliptically filtered 2D density plot,
-and a density plot for the log2 ratio of experiment to control library read
-counts.
+No explicit return, will produce a correlation plot plus 3 plots per
+experiment group: an unfiltered 2D density plot, an elliptically filtered 2D
+density plot, and a density plot for the log2 ratio of experiment to control
+library read counts.
 }
 \description{
 This function produces various diagnostic plots to help the user understand

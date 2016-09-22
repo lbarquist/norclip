@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggheat.R
 \name{ggheat}
 \alias{ggheat}
-\title{A heatmap.2 style heatmap in ggplot2}
+\title{ggplot2 heatmap}
 \usage{
 ggheat(m, rescaling = "none", clustering = "none", labCol = T,
   labRow = T, border = FALSE, heatscale = c(low = "blue", high = "red"))
@@ -23,14 +23,18 @@ ggheat(m, rescaling = "none", clustering = "none", labCol = T,
 \item{heatscale}{Color range for colorscale.}
 }
 \value{
-heatmap.2 style plot in ggplots2
+A ggplot object containing the formatted heatmap
 }
 \description{
-A heatmap.2 style heatmap in ggplot2
+Draws a (potentially clustered) heatmap, with a lighter-weight resulting
+figure file than is typical for heatmap.2. This code was modified from a code
+snippet found at:
+\link{https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/};
+if you are the original author please contact me so I can credit you
+properly.
 }
 \details{
-modified from
-https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/
+
 }
 \examples{
 

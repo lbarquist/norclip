@@ -16,10 +16,10 @@
 #' @param colramp Color scheme for 2D density plots. Defaults to mimic the color
 #' scheme of \code{\link{smoothScatter}}.
 #'
-#' @return No explicit return, will produce 3 plots per experiment group:
-#' an unfiltered 2D density plot, an elliptically filtered 2D density plot,
-#' and a density plot for the log2 ratio of experiment to control library read
-#' counts.
+#' @return No explicit return, will produce a correlation plot plus 3 plots per
+#' experiment group: an unfiltered 2D density plot, an elliptically filtered 2D
+#' density plot, and a density plot for the log2 ratio of experiment to control
+#' library read counts.
 #'
 #' @examples
 #'
@@ -70,7 +70,5 @@ runDiagnostics <- function(wigs, data_table, sdn=8,
     hist(ratio, breaks="FD", freq=FALSE,
          main=paste("Ratio density for ", this_id, sep= " "), col="lightgrey")
   }, .progress="text")
-
-
 
 }

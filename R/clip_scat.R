@@ -23,7 +23,7 @@
 #'
 #' @export
 #'
-#' @seealso \code{\link{elliptical_filter}} \code{\link{geom_hex}}
+#' @seealso \code{\link{filter_elliptical}} \code{\link{geom_hex}}
 #'
 
 clip_scat <- function(exp, ctrl, sf_exp=1, sf_ctrl=1, xyline=F,
@@ -44,8 +44,10 @@ clip_scat <- function(exp, ctrl, sf_exp=1, sf_ctrl=1, xyline=F,
   this_dat <- data.frame(exp = masked_exp, ctrl = masked_ctrl)
 
   p <- ggplot2::ggplot(this_dat, ggplot2::aes(x=exp, y=ctrl))
-  p <- p + ggplot2::geom_hex(ggplot2::aes(x=exp,y=ctrl), bins=100) + ggplot2::xlab("+XL") + ggplot2::ylab ("-XL")
-  p <- p + ggplot2::scale_fill_gradientn("", colours = colramp) + ggplot2::theme_bw()
+  p <- p + ggplot2::geom_hex(ggplot2::aes(x=exp,y=ctrl), bins=100)
+  p <- p + ggplot2::xlab("+XL") + ggplot2::ylab ("-XL")
+  p <- p + ggplot2::scale_fill_gradientn("", colours = colramp)
+  p <- p + ggplot2::theme_bw()
   p <- p + ggplot2::ggtitle(main)
   if(xyline){
     p <- p + ggplot2::geom_abline(intercept=0, slope=1, colour="red")

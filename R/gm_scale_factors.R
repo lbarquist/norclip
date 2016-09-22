@@ -38,7 +38,7 @@
 gm_scale_factors <- function(matrix, locfunc=median){
   log_mean <- rowMeans(log(matrix))
   nz <- which(log_mean != 0 & !is.infinite(log_mean))
-  SF <- aaply(matrix[nz,],2,function(x){exp(locfunc(log(x) - log_mean[nz]))})
+  SF <- plyr::aaply(matrix[nz,],2,function(x){exp(locfunc(log(x) - log_mean[nz]))})
 
   return(SF)
 }

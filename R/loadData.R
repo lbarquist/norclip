@@ -47,8 +47,6 @@ loadData <- function(data_table){
     return(this_wig)
   }, .progress="text")
 
-  #return(wigs)
-
   #check replicons identical, get lengths
   replicons <- names(wigs[[1]])
   plyr::l_ply(wigs, function(x){
@@ -56,6 +54,7 @@ loadData <- function(data_table){
       stop("Replicons differ between experiments")
     }
   })
+
   #implement sampling strategy for large genomes?
   max_len <- as.list(rep(0, length(replicons)))
   max_len <- setNames(max_len, replicons)
@@ -79,7 +78,7 @@ loadData <- function(data_table){
 
   #convert all replicons to single RLE
   wigs <- plyr::llply(wigs, function(x){
-    unlist(x[order(replicons)])
+    return(IRanges::unlist(x[order(replicons)]))
   })
 
   return(wigs)

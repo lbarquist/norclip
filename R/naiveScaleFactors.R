@@ -26,7 +26,7 @@ naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
   colnames(data_table) <- c("identifier","type","direction","file")
   uids <- as.vector(unique(data_table$identifier), mode="list")
 
-  vecs <- llply(uids, function(this_id){
+  vecs <- plyr::llply(uids, function(this_id){
     efi <- which(data_table$identifier == this_id & data_table$type == "E" &
                    data_table$direction =="F")
     eri <- which(data_table$identifier == this_id & data_table$type == "E" &
@@ -45,14 +45,14 @@ naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
 
   #return(vecs)
 
-  nz_pos_exp <- llply(vecs, function(this_uid){
+  nz_pos_exp <- plyr::llply(vecs, function(this_uid){
     return(which(this_uid$exp > bg_cut))
   })
 
   nz_exp <- Reduce(intersect, nz_pos_exp)
   rm(nz_pos_exp)
 
-  nz_pos_ctrl <- llply(vecs, function(this_uid){
+  nz_pos_ctrl <- plyr::llply(vecs, function(this_uid){
     return(which(this_uid$ctrl > bg_cut))
   })
 
@@ -66,7 +66,7 @@ naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
 
   vecs <- unlist(vecs)
 
-  nz_ar <- laply(vecs, function(this_rle){
+  nz_ar <- plyr::laply(vecs, function(this_rle){
     return(as.vector(this_rle[nz], mode="integer"))
   })
 
@@ -76,7 +76,7 @@ naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
   colnames(sfs) <- c("E", "C")
 
   if(plot){
-    l_ply(uids, function(this_id){
+    plyr::l_ply(uids, function(this_id){
       efi <- which(data_table$identifier == this_id & data_table$type == "E" &
                      data_table$direction =="F")
       eri <- which(data_table$identifier == this_id & data_table$type == "E" &

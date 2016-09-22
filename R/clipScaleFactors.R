@@ -32,7 +32,9 @@
 #' \code{\link{gm_scale_factors}}, \code{\link{filter_elliptical}}
 #' \code{\link{clip_scat}}
 #'
+#' @import IRanges
 #' @export
+#'
 
 clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
                              plot=T, bg_cut=5){

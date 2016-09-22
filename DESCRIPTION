@@ -9,10 +9,12 @@ Maintainer: Lars Barquist <lars.barquist@uni-wuerzburg.de>
 Description: What the package does (one paragraph).
 Depends:
     R (>= 3.2.3),
-    rtracklayer
+    rtracklayer,
+    IRanges
 Imports:
     plyr,
-    ggplot2
+    ggplot2,
+    reshape
 Suggests:
     BiocStyle,
     knitr

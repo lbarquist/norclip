@@ -64,7 +64,7 @@ find_minima_in_range <- function(data, n=1,
     hist(data, breaks="FD", freq=FALSE,
          main=paste("First",n, "local minima", sep= " "), col="lightgrey")
     lines(density, lwd=2)
-    l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+    plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
   }
 
   return(selected_positions)

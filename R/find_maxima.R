@@ -54,7 +54,7 @@ find_maxima <- function(data, n=2, plot=FALSE){
     hist(data, breaks="FD", freq=FALSE,
          main=paste("First",n, "local maxima", sep= " "), col="lightgrey")
     lines(density, lwd=2)
-    l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+    plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
   }
 
   return(selected_positions)

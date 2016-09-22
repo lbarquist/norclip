@@ -90,11 +90,13 @@ ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T, bord
 
   ## get rid of grey panel background and gridlines
 
-  g2=g2+ggplot2::theme(panel.grid.minor=element_line(colour=NA), panel.grid.major=element_line(colour=NA),
-             panel.background=element_rect(fill=NA, colour=NA))
+  g2=g2+ggplot2::theme(panel.grid.minor=ggplot2::element_line(colour=NA),
+                       panel.grid.major=ggplot2::element_line(colour=NA),
+                       panel.background=ggplot2::element_rect(fill=NA,
+                                                              colour=NA))
 
   ## finally add the fill colour ramp of your choice (default is blue to red)-- and return
-  return(g2+ggplot2::scale_fill_continuous("", heatscale[1], heatscale[2]))
+  print(g2+ggplot2::scale_fill_continuous("", heatscale[1], heatscale[2]))
 
 }
 

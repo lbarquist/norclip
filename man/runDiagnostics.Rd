@@ -28,10 +28,10 @@ counts.
 \description{
 This function produces various diagnostic plots to help the user understand
 if their data is suitable for \code{\link{norclip}} analysis, and if the
-default filtering values are appropriate. These include unfiltered and
-filtered 2D density plots comparing crosslinked libraries to uncrosslinked
-control libraries, and 1D histograms of the result log2 ratios. See vignette
-for advice on interpreting these plots.
+default filtering values are appropriate. These include correlations between
+libraries, unfiltered and filtered 2D density plots comparing crosslinked
+libraries to uncrosslinked control libraries, and 1D histograms of the
+resulting log2 ratios. See vignette for advice on interpreting these plots.
 }
 \examples{
 

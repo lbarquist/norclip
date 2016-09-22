@@ -2,10 +2,10 @@
 #'
 #' This function produces various diagnostic plots to help the user understand
 #' if their data is suitable for \code{\link{norclip}} analysis, and if the
-#' default filtering values are appropriate. These include unfiltered and
-#' filtered 2D density plots comparing crosslinked libraries to uncrosslinked
-#' control libraries, and 1D histograms of the result log2 ratios. See vignette
-#' for advice on interpreting these plots.
+#' default filtering values are appropriate. These include correlations between
+#' libraries, unfiltered and filtered 2D density plots comparing crosslinked
+#' libraries to uncrosslinked control libraries, and 1D histograms of the
+#' resulting log2 ratios. See vignette for advice on interpreting these plots.
 #'
 #'
 #' @param wigs A list of IRanges rle coverage vectors.
@@ -33,9 +33,11 @@ runDiagnostics <- function(wigs, data_table, sdn=8,
   message("Running CLIP diagnostics")
   colnames(data_table) <- c("identifier","type","direction","file")
 
+  cor_mat <- plotCorrelations(wigs, data_table)
+
   uids <- as.vector(unique(data_table$identifier), mode="list")
 
-  factors <- l_ply(uids, function(this_id){
+  factors <- plyr::l_ply(uids, function(this_id){
     efi <- which(data_table$identifier == this_id & data_table$type == "E" &
                    data_table$direction =="F")
     eri <- which(data_table$identifier == this_id & data_table$type == "E" &

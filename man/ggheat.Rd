@@ -5,7 +5,8 @@
 \title{ggplot2 heatmap}
 \usage{
 ggheat(m, rescaling = "none", clustering = "none", labCol = T,
-  labRow = T, border = FALSE, heatscale = c(low = "blue", high = "red"))
+  labRow = T, border = FALSE, heatscale = c(low = "darkblue", high =
+  "lightblue"))
 }
 \arguments{
 \item{m}{A numeric matrix or data.frame}
@@ -27,9 +28,9 @@ A ggplot object containing the formatted heatmap
 }
 \description{
 Draws a (potentially clustered) heatmap, with a lighter-weight resulting
-figure file than is typical for heatmap.2. This code was modified from a code
+figure file than is typical for heatmap.2. This code adapted from a code
 snippet found at:
-\link{https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/};
+https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/;
 if you are the original author please contact me so I can credit you
 properly.
 }
@@ -37,6 +38,10 @@ properly.
 
 }
 \examples{
+
+data(mtcars)
+x=as.matrix(mtcars)
+ggheat(x, clustering='column', rescaling='row', heatscale=c(low='red', high='yellow'))
 
 }
 \seealso{

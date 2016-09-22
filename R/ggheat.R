@@ -1,9 +1,9 @@
 #' ggplot2 heatmap
 #'
 #' Draws a (potentially clustered) heatmap, with a lighter-weight resulting
-#' figure file than is typical for heatmap.2. This code was modified from a code
+#' figure file than is typical for heatmap.2. This code adapted from a code
 #' snippet found at:
-#' \link{https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/};
+#' https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/;
 #' if you are the original author please contact me so I can credit you
 #' properly.
 #'
@@ -21,6 +21,11 @@
 #'
 #'
 #' @examples
+#'
+#' data(mtcars)
+#' x=as.matrix(mtcars)
+#' ggheat(x, clustering='column', rescaling='row', heatscale=c(low='red',
+#' high='yellow'))
 #'
 #' @seealso \code{\link{runDiagnostics}}, \code{\link{plotCorrelations}}
 #'
@@ -79,8 +84,6 @@ ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T,
     g2=g2+ggplot2::scale_y_continuous(breaks=(1:rows)-0.5, labels=rownames(m))
   if(labRow==F)
     g2=g2+ggplot2::scale_y_continuous(breaks=(1:rows)-0.5, labels=rep('',rows))
-
-  ## get rid of grey panel background and gridlines
 
   g2=g2+ggplot2::theme(panel.grid.minor=ggplot2::element_line(colour=NA),
                        panel.grid.major=ggplot2::element_line(colour=NA),

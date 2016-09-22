@@ -5,7 +5,7 @@
 \title{Plot clustered correlation heatmap for a list of RLE coverage plots}
 \usage{
 plotCorrelations(wigs, data_table, method = "pearson", log = F,
-  heatscale = c(low = "blue", high = "red"))
+  heatscale = c(low = "darkblue", high = "lightblue"))
 }
 \arguments{
 \item{wigs}{A list of IRanges rle coverage vectors.}

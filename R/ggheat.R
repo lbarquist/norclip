@@ -1,11 +1,7 @@
 #' ggplot2 heatmap
 #'
 #' Draws a (potentially clustered) heatmap, with a lighter-weight resulting
-#' figure file than is typical for heatmap.2. This code adapted from a code
-#' snippet found at:
-#' https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/;
-#' if you are the original author please contact me so I can credit you
-#' properly.
+#' figure file than is typical for heatmap.2.
 #'
 #' @param m A numeric matrix or data.frame
 #' @param rescaling Rescale? Options are "row" or "column"
@@ -34,6 +30,9 @@
 ggheat=function(m, rescaling='none', clustering='none', labCol=T, labRow=T,
                 border=FALSE, heatscale= c(low='darkblue',high='lightblue'))
 {
+
+  # This code adapted from a snippet found at:
+  # https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/
 
   if(is.function(rescaling))
   {

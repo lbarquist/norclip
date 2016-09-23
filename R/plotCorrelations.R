@@ -28,7 +28,7 @@ plotCorrelations <- function(wigs, data_table, method="pearson", log=F,
                              heatscale= c(low='darkblue',high='lightblue')){
   colnames(data_table) <- c("identifier","type","direction","file")
   nz_pos <- plyr::llply(wigs, function(this_rle){return(which(this_rle != 0))})
-  nz <- Reduce(intersect, nz_pos)
+  nz <- Reduce(union, nz_pos)
 
   vec_list <- plyr::llply(wigs, function(this_rle){as.vector(this_rle[nz],
                                                              mode="numeric")})

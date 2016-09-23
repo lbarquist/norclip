@@ -28,11 +28,7 @@ A ggplot object containing the formatted heatmap
 }
 \description{
 Draws a (potentially clustered) heatmap, with a lighter-weight resulting
-figure file than is typical for heatmap.2. This code adapted from a code
-snippet found at:
-https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/;
-if you are the original author please contact me so I can credit you
-properly.
+figure file than is typical for heatmap.2.
 }
 \details{
 
@@ -41,7 +37,8 @@ properly.
 
 data(mtcars)
 x=as.matrix(mtcars)
-ggheat(x, clustering='column', rescaling='row', heatscale=c(low='red', high='yellow'))
+ggheat(x, clustering='column', rescaling='row', heatscale=c(low='red',
+high='yellow'))
 
 }
 \seealso{

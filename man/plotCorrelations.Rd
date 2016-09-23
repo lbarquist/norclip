@@ -28,7 +28,7 @@ Plot clustered correlation heatmap for a list of RLE coverage plots
 \details{
 This function calculates correlation values between a set of
 (possibly IRanges RLE) coverage plots, plotting them using the
-\code{\link{ggheat}} function. Additionally, the correlation matrix is
+ggplot2. Additionally, the correlation matrix is
 returned.
 }
 \examples{

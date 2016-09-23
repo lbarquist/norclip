@@ -13,7 +13,7 @@
 #'
 #' @details This function calculates correlation values between a set of
 #' (possibly IRanges RLE) coverage plots, plotting them using the
-#' \code{\link{ggheat}} function. Additionally, the correlation matrix is
+#' ggplot2. Additionally, the correlation matrix is
 #' returned.
 #'
 #'
@@ -46,7 +46,30 @@ plotCorrelations <- function(wigs, data_table, method="pearson", log=F,
   }
   rownames(cormat) <- these_names
   colnames(cormat) <- these_names
-  print(ggheat(cormat, clustering="both", labRow=T, labCol=T,
-               heatscale=heatscale, border=T))
+
+
+  # Adapted from a snippet found at:
+  # https://www.r-bloggers.com/ggheat-a-ggplot2-style-heatmap-function/
+
+  m <- cormat[hclust(dist(cormat))$order ,hclust(dist(t(cormat)))$order]
+  rows <- dim(m)[1]
+  cols <- dim(m)[2]
+  melt.m <- cbind(rowInd=rep(1:rows, times=cols), colInd=rep(1:cols, each=rows),
+               reshape::melt.array(m))
+  g <- ggplot2::ggplot(data=melt.m)
+
+  g <- g + ggplot2::geom_rect(ggplot2::aes(xmin=colInd-1,xmax=colInd,
+                                       ymin=rowInd-1,ymax=rowInd, fill=value)
+                          ,colour='white')
+
+  g <- g + ggplot2::scale_x_continuous(breaks=(1:cols)-0.5, labels=colnames(m))
+  g <- g + ggplot2::scale_y_continuous(breaks=(1:rows)-0.5, labels=rownames(m))
+
+  g <- g + ggplot2::theme(panel.grid.minor=ggplot2::element_line(colour=NA),
+                       panel.grid.major=ggplot2::element_line(colour=NA),
+                       panel.background=ggplot2::element_rect(fill=NA,
+                                                              colour=NA))
+
+  print(g)
   return(cormat)
 }

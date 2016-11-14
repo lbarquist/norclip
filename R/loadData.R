@@ -78,7 +78,7 @@ loadData <- function(data_table){
 
   #convert all replicons to single RLE
   wigs <- plyr::llply(wigs, function(x){
-    return(IRanges::unlist(x[order(replicons)]))
+    return(unlist(x[order(replicons)]))
   })
 
   return(wigs)

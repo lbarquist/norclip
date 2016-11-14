@@ -28,7 +28,7 @@
 #' @seealso \code{\link{norclip}}, \code{\link{loadData}},
 #' \code{\link{filter_elliptical}}, \code{\link{clip_scat}}
 
-runDiagnostics <- function(wigs, data_table, sdn=8,
+runDiagnostics <- function(wigs, data_table, sdn=10,
                            colramp=rev(rainbow(10, end = 4/6))){
   message("Running CLIP diagnostics")
   colnames(data_table) <- c("identifier","type","direction","file")

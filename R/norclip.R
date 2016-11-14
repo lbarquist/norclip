@@ -13,7 +13,7 @@
 #data_table <-read.table(file, stringsAsFactors = F)
 # colnames(data_table) <- c("identifier","type","direction","file")
 
-norclip <- function(data_table, crossnormalize=T, sdn=8, diagnostics=T,
+norclip <- function(data_table, crossnormalize=T, sdn=10, diagnostics=T,
                     bg_cut=5, naive=T, export_wigs=F, wig_path="."){
   wigs <- loadData(data_table)
 

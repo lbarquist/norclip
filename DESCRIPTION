@@ -14,7 +14,8 @@ Depends:
 Imports:
     plyr,
     ggplot2,
-    reshape
+    reshape2,
+    hexbin
 Suggests:
     BiocStyle,
     knitr

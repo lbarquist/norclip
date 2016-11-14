@@ -35,6 +35,6 @@ returned.
 
 }
 \seealso{
-\code{\link{ggheat}}, \code{\link{runDiagnostics}}
+\code{\link{runDiagnostics}}
 }
 

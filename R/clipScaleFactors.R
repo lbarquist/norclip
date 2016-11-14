@@ -36,7 +36,7 @@
 #' @export
 #'
 
-clipScaleFactors <- function(wigs, data_table, sdn=8, crossnormalize=T,
+clipScaleFactors <- function(wigs, data_table, sdn=10, crossnormalize=T,
                              plot=T, bg_cut=5){
   colnames(data_table) <- c("identifier","type","direction","file")
   uids <- as.vector(unique(data_table$identifier), mode="list")

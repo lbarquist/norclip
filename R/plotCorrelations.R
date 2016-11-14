@@ -19,7 +19,7 @@
 #'
 #' @examples
 #'
-#' @seealso \code{\link{ggheat}}, \code{\link{runDiagnostics}}
+#' @seealso \code{\link{runDiagnostics}}
 #'
 #' @export
 
@@ -55,7 +55,7 @@ plotCorrelations <- function(wigs, data_table, method="pearson", log=F,
   rows <- dim(m)[1]
   cols <- dim(m)[2]
   melt.m <- cbind(rowInd=rep(1:rows, times=cols), colInd=rep(1:cols, each=rows),
-               reshape::melt.array(m))
+               reshape2::melt(m))
   g <- ggplot2::ggplot(data=melt.m)
 
   g <- g + ggplot2::geom_rect(ggplot2::aes(xmin=colInd-1,xmax=colInd,

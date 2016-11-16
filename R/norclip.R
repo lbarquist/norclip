@@ -1,7 +1,13 @@
 #' Perform norclip normalization of CLIP-seq libraries
 #'
 #'
-#' @param file Path to a description file
+#' @param data_table A description table
+#' @param crossnormalize Perform cross-normalization of replicates?
+#' @param sdn Number of standard deviations for elliptical filtering
+#' @param diagnostics Run diagnostics prior to normalization?
+#' @param bg_cut Number of reads required in background library for a position
+#' to be used in normalization
+#' @param naive Additionally run "naive" normalization?
 #'
 #' @examples
 #'
@@ -14,7 +20,7 @@
 # colnames(data_table) <- c("identifier","type","direction","file")
 
 norclip <- function(data_table, crossnormalize=T, sdn=10, diagnostics=T,
-                    bg_cut=5, naive=T, export_wigs=F, wig_path="."){
+                    bg_cut=5, naive=T, export_wigs=F){
   wigs <- loadData(data_table)
 
   if(diagnostics){

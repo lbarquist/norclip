@@ -74,14 +74,23 @@ clipScaleFactors <- function(wigs, data_table, sdn=10, crossnormalize=T,
 
     if(plot){
       nf <- median(evec / cvec)
-      plot(sort(evec[scale_indices] / cvec[scale_indices]),
-           ylab="XL+ to XL- ratio", xlab="Sort Index", pch=20)
+      #plot(sort(evec[scale_indices] / cvec[scale_indices]),
+      #     ylab="XL+ to XL- ratio", xlab="Sort Index", pch=20)
+      #abline(h=nf, col="red")
+      #abline(h=sf, col="blue")
+      #mtext(paste("naive scale factor:", nf), side=3, adj=0, line=0, col="red")
+      #mtext(paste("norclip scale factor:",sf), side=3, adj=0, line=1,
+      #      col="blue")
+      #mtext(this_id, side=3, adj=0, line=2)
+
+      plot(sort(evec / cvec),
+           ylab="XL+ to XL- ratio", xlab="Sort Index", ylim=c(0,5*nf), pch=20)
       abline(h=nf, col="red")
       abline(h=sf, col="blue")
       mtext(paste("naive scale factor:", nf), side=3, adj=0, line=0, col="red")
       mtext(paste("norclip scale factor:",sf), side=3, adj=0, line=1,
             col="blue")
-      mtext(this_id, side=3, adj=0, line=2)
+      mtext(paste(this_id, "- no filter"), side=3, adj=0, line=2)
     }
 
     return(sf)

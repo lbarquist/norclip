@@ -37,7 +37,7 @@
 #'
 
 clipScaleFactors <- function(wigs, data_table, sdn=10, crossnormalize=T,
-                             plot=T, bg_cut=5, density_est="model", adjust=2){
+                             plot=T, bg_cut=5, breakpoint="kmeans", adjust=2){
   colnames(data_table) <- c("identifier","type","direction","file")
   uids <- as.vector(unique(data_table$identifier), mode="list")
 
@@ -71,14 +71,14 @@ clipScaleFactors <- function(wigs, data_table, sdn=10, crossnormalize=T,
     #  mod = densityMclust(ratio, G=2)
     #  density <- as.data.frame(cbind(x=as.numeric(ratio), y=as.numeric(mod$density)))
     #}
-    if((density_est == "empirical") | density_est == "model"){
-      maxima <- find_maxima(ratio, plot=plot, density_est=density_est, adjust=adjust)
+    if((breakpoint == "empirical") | breakpoint == "model"){
+      maxima <- find_maxima(ratio, plot=plot, density_est=breakpoint, adjust=adjust)
 
-      seperator <- find_minima_in_range(ratio, range=sort(maxima), plot=plot, density_est=density_est, adjust=adjust)
-    } else if(density_est == "kmeans"){
-      seperator <- find_seperator_kmeans(ratio, plot=plot)
+      separator <- find_minima_in_range(ratio, range=sort(maxima), plot=plot, density_est=breakpoint, adjust=adjust)
+    } else if(breakpoint == "kmeans"){
+      separator <- find_separator_kmeans(ratio, plot=plot)
     }
-    scale_indices <- which(ratio < seperator)
+    scale_indices <- which(ratio < separator)
 
     sf <- median(evec[scale_indices] / cvec[scale_indices])
 

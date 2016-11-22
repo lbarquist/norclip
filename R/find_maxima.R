@@ -23,7 +23,7 @@
 #' @seealso \code{\link{find_minima_in_range}}
 #'
 #' @export
-#'
+#' @import mclust
 #'
 
 find_maxima <- function(data, n=2, plot=FALSE, density_est="model", adjust=2, components=2){

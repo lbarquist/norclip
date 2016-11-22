@@ -4,7 +4,7 @@
 \alias{runDiagnostics}
 \title{A function to generate diagnostic plots for CLIP-seq data.}
 \usage{
-runDiagnostics(wigs, data_table, sdn = 8, colramp = rev(rainbow(10, end =
+runDiagnostics(wigs, data_table, sdn = 10, colramp = rev(rainbow(10, end =
   4/6)))
 }
 \arguments{

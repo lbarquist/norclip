@@ -27,6 +27,7 @@
 #' @seealso \code{\link{find_maxmima}}
 #'
 #' @export
+#' @import mclust
 #'
 #'
 

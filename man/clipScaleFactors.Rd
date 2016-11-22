@@ -4,8 +4,8 @@
 \alias{clipScaleFactors}
 \title{Calculate scale factors for CLIP-seq data}
 \usage{
-clipScaleFactors(wigs, data_table, sdn = 8, crossnormalize = T, plot = T,
-  bg_cut = 5)
+clipScaleFactors(wigs, data_table, sdn = 10, crossnormalize = T, plot = T,
+  bg_cut = 5, breakpoint = "kmeans", adjust = 2)
 }
 \arguments{
 \item{wigs}{A list of IRanges rle coverage vectors.}

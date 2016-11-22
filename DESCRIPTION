@@ -19,7 +19,8 @@ Imports:
     Ckmeans.1d.dp
 Suggests:
     BiocStyle,
-    knitr
+    knitr,
+    mclust
 License: LGPL-3.0
 Encoding: UTF-8
 LazyData: true

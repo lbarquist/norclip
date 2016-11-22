@@ -4,7 +4,8 @@
 \alias{find_maxima}
 \title{Find local maxima in the empirical distribution of a vector of values}
 \usage{
-find_maxima(data, n = 2, plot = FALSE)
+find_maxima(data, n = 2, plot = FALSE, density_est = "model",
+  adjust = 2, components = 2)
 }
 \arguments{
 \item{data}{A vector containing numeric data points.}

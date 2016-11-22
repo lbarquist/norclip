@@ -5,7 +5,7 @@
 \title{Find local minima in the empirical distribution of a vector.}
 \usage{
 find_minima_in_range(data, n = 1, range = c(min(data), max(data)),
-  plot = FALSE)
+  plot = FALSE, density_est = "empirical", adjust = 2, components = 2)
 }
 \arguments{
 \item{data}{A vector containing numeric data points.}

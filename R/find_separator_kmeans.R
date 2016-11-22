@@ -7,25 +7,18 @@
 #'
 #' @return Returns value for separation point between clusters
 #'
-#' @details This function computes scale factors for CLIP-seq data, under the
-#' assumption that it follows a bi- or multi-modal distribution. For each
-#' matched experiment, low count reads are first filtered using an elliptical
-#' filter based on the read count standard deviation. Log2 ratios of read counts
-#' per nucleotide are calculated, and a local minima is identified between the
-#' two highest density maxima. Positions with a log2 ratio less than this minima
-#' are then used to fit a scale factor for each experiment. Optionally using the
-#' \code{crossnormalize} parameter, all libraries can be scaled based on scale
-#' factors computed between control libraries to produce consistent values for
-#' hypothesis testing. Note positions with less than \code{bg_cut} reads in
-#' any library will be excluded.
+#' @details This function uses the \code{\link[Ckmeans.1d.dp]{Ckmeans.1d.dp}} package to
+#' compute an optimal 2-component kmeans clustering on the given data, returning
+#' the lowest value within the cluster with the highest mean to be used as a
+#' separator in CLIP normalization.
 #'
 #'
 #' @examples
 #'
-#' @seealso \code{\link{norclip}}, \code{\link{clipScaleFactors}}
+#' @seealso \code{\link{norclip}}, \code{\link{clipScaleFactors}},
+#' \code{\link{Ckmeans.1d.dp}}
 #'
 #' @import Ckmeans.1d.dp
-#' @export
 #'
 find_separator_kmeans <- function(data, plot=TRUE){
   clustering <- Ckmeans.1d.dp(data, 2)

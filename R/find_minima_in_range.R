@@ -31,9 +31,15 @@
 #'
 
 find_minima_in_range <- function(data, n=1,
-                                 range=c(min(data), max(data)), plot=FALSE){
+                                 range=c(min(data), max(data)), plot=FALSE, density_est="empirical", adjust=2, components=2){
   minima <- NULL
-  density <- density(data)
+
+  density <- density(data, adjust=adjust)
+  if(density_est == "model"){
+    mod = densityMclust(data, G=2)
+    summary(mod)
+    density <- as.data.frame(cbind(x=density$x, y=predict(mod, density$x)))
+  }
 
   density_range <- density$x > range[1] & density$x < range[2]
 
@@ -61,10 +67,17 @@ find_minima_in_range <- function(data, n=1,
   selected_positions <- positions[order[1:n]]
 
   if(plot){
-    hist(data, breaks="FD", freq=FALSE,
-         main=paste("First",n, "local minima", sep= " "), col="lightgrey")
-    lines(density, lwd=2)
-    plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+  #  if(density_est=="empirical"){
+      hist(data, breaks="FD", freq=FALSE,
+           main=paste("First",n, "local minima", sep= " "), col="lightgrey")
+      lines(density, lwd=2)
+      plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+  #  }
+  #  else if(density_est=="model"){
+   #   plot(mod, what="density", data=data, breaks="FD",
+  #         main=paste("First",n, "local minima", sep= " "), col="lightgrey")
+  #    plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+   # }
   }
 
   return(selected_positions)

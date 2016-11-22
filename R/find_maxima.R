@@ -26,9 +26,15 @@
 #'
 #'
 
-find_maxima <- function(data, n=2, plot=FALSE){
+find_maxima <- function(data, n=2, plot=FALSE, density_est="model", adjust=2, components=2){
   maxima <- NULL
-  density <- density(data)
+
+  density <- density(data, adjust=adjust)
+  if(density_est == "model"){
+    mod = densityMclust(data, G=components)
+    density <- as.data.frame(cbind(x=density$x, y=predict(mod, density$x)))
+  }
+  #density <- density(data)
   y <- density$y
   for ( i in 2:(length(y)-1) ){
     if ( (y[i] > y[i-1]) & (y[i] > y[i+1]) ) {
@@ -51,10 +57,15 @@ find_maxima <- function(data, n=2, plot=FALSE){
   selected_positions <- positions[order[1:n]]
 
   if(plot){
-    hist(data, breaks="FD", freq=FALSE,
+      hist(data, breaks="FD", freq=FALSE,
          main=paste("First",n, "local maxima", sep= " "), col="lightgrey")
-    lines(density, lwd=2)
-    plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+      lines(density, lwd=2)
+      plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+    #else if(density_est=="model"){
+     # plot(mod, what="density", data=data, breaks="FD",
+      #     main=paste("First",n, "local maxima", sep= " "), col="lightgrey")
+      #plyr::l_ply(selected_positions, function(x){abline(v=x, col="red", lwd=2)})
+    #}
   }
 
   return(selected_positions)

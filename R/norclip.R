@@ -20,7 +20,7 @@
 # colnames(data_table) <- c("identifier","type","direction","file")
 
 norclip <- function(data_table, crossnormalize=T, sdn=10, diagnostics=T,
-                    bg_cut=5, naive=T, export_wigs=F){
+                    bg_cut=5, naive=T, export_wigs=F, adjust=2){
   wigs <- loadData(data_table)
 
   if(diagnostics){
@@ -28,7 +28,7 @@ norclip <- function(data_table, crossnormalize=T, sdn=10, diagnostics=T,
   }
 
   factors <- clipScaleFactors(wigs, data_table, sdn, crossnormalize,
-                              plot=diagnostics, bg_cut=bg_cut)
+                              plot=diagnostics, bg_cut=bg_cut, density_est="empirical", adjust=adjust)
 
   if(naive){
     naive <- naiveScaleFactors(wigs, data_table, sdn=sdn, bg_cut=bg_cut,

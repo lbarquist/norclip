@@ -36,7 +36,7 @@
 #' @export
 #'
 
-clipScaleFactors <- function(wigs, data_table, sdn=10, crossnormalize=T,
+clipScaleFactors <- function(wigs, data_table, sdn=5, crossnormalize=T,
                              plot=T, bg_cut=5, breakpoint="kmeans", adjust=2){
   colnames(data_table) <- c("identifier","type","direction","file")
   uids <- as.vector(unique(data_table$identifier), mode="list")
@@ -80,6 +80,9 @@ clipScaleFactors <- function(wigs, data_table, sdn=10, crossnormalize=T,
     }
     scale_indices <- which(ratio < separator)
 
+    message(paste(this_id, ":", length(scale_indices),
+                  " background positions used for normalization", sep=""))
+
     sf <- median(evec[scale_indices] / cvec[scale_indices])
 
     if(plot){
@@ -104,7 +107,7 @@ clipScaleFactors <- function(wigs, data_table, sdn=10, crossnormalize=T,
     }
 
     return(sf)
-  }, .progress="text")
+  })
 
   names(fg_sfs) <- unlist(uids)
   #return(fg_sfs)

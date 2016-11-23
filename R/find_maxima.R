@@ -23,7 +23,6 @@
 #' @seealso \code{\link{find_minima_in_range}}
 #'
 #' @export
-#' @import mclust
 #'
 
 find_maxima <- function(data, n=2, plot=FALSE, density_est="model", adjust=2, components=2){
@@ -31,7 +30,7 @@ find_maxima <- function(data, n=2, plot=FALSE, density_est="model", adjust=2, co
 
   density <- density(data, adjust=adjust)
   if(density_est == "model"){
-    mod = densityMclust(data, G=components)
+    mod = mclust::densityMclust(data, G=components)
     density <- as.data.frame(cbind(x=density$x, y=predict(mod, density$x)))
   }
   #density <- density(data)

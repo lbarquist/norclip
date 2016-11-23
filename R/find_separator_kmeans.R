@@ -18,18 +18,19 @@
 #' @seealso \code{\link{norclip}}, \code{\link{clipScaleFactors}},
 #' \code{\link{Ckmeans.1d.dp}}
 #'
+#' @export
 #' @import Ckmeans.1d.dp
 #'
 find_separator_kmeans <- function(data, plot=TRUE){
   clustering <- Ckmeans.1d.dp(data, 2)
   foreground <- which(clustering$centers == max(clustering$centers))
   fg_indices <- which(clustering$cluster == foreground)
-  seperator <- min(data[fg_indices])
+  separator <- min(data[fg_indices])
 
   if(plot){
     hist(data, breaks="FD", main=paste("K-means clustering breakpoint"), col="lightgrey")
-    abline(v=seperator, col="red")
+    abline(v=separator, col="red")
   }
 
-  return(seperator)
+  return(separator)
 }

@@ -22,7 +22,7 @@
 #'
 #' @export
 
-naiveScaleFactors <- function(wigs, data_table, sdn=8, bg_cut=5, plot=F){
+naiveScaleFactors <- function(wigs, data_table, sdn=5, bg_cut=5, plot=F){
   colnames(data_table) <- c("identifier","type","direction","file")
   uids <- as.vector(unique(data_table$identifier), mode="list")
 
